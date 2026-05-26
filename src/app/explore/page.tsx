@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { regionConfigs } from "@/lib/data";
+import { regionConfigs, getEntriesByRegionAndCategory } from "@/lib/data";
 import { Suspense } from "react";
+import EntryCard from "@/components/EntryCard";
 
 function ExploreContent() {
   const searchParams = useSearchParams();
@@ -13,6 +14,14 @@ function ExploreContent() {
   const region = regionSlug ? regionConfigs[regionSlug] : null;
 
   const [activeCategory, setActiveCategory] = useState("All");
+
+  const entries = useMemo(
+    () =>
+      region
+        ? getEntriesByRegionAndCategory(region.tag, activeCategory)
+        : [],
+    [region, activeCategory]
+  );
 
   if (!region) {
     return (
@@ -163,39 +172,54 @@ function ExploreContent() {
       </motion.div>
 
       <AnimatePresence mode="wait">
-        <motion.div
-          key={activeCategory}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -16 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="flex flex-col items-center justify-center py-20 text-center"
-        >
+        {entries.length > 0 ? (
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.08, duration: 0.3, ease: "easeOut" }}
-            className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-surface/60 backdrop-blur-sm"
+            key={activeCategory}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
-            <svg
-              className="h-7 w-7 text-muted"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-              />
-            </svg>
+            {entries.map((entry, i) => (
+              <EntryCard key={entry.slug} entry={entry} index={i} />
+            ))}
           </motion.div>
-          <h2 className="mb-1 text-xl font-semibold">No Entries Yet</h2>
-          <p className="max-w-sm text-sm text-muted">
-            Content for {activeCategory === "All" ? "this city" : activeCategory} is being prepared. Check back later.
-          </p>
-        </motion.div>
+        ) : (
+          <motion.div
+            key={activeCategory}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="flex flex-col items-center justify-center py-20 text-center"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.08, duration: 0.3, ease: "easeOut" }}
+              className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-surface/60 backdrop-blur-sm"
+            >
+              <svg
+                className="h-7 w-7 text-muted"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                />
+              </svg>
+            </motion.div>
+            <h2 className="mb-1 text-xl font-semibold">No Entries Yet</h2>
+            <p className="max-w-sm text-sm text-muted">
+              Content for {activeCategory === "All" ? "this city" : activeCategory} is being prepared. Check back later.
+            </p>
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );

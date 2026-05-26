@@ -33,4 +33,17 @@ export function getRelatedEntries(slugs: string[]): DrillEntry[] {
   return entries.filter((e) => slugs.includes(e.slug));
 }
 
+export function getEntriesByRegion(regionTag: string): DrillEntry[] {
+  return entries.filter((e) => e.region === regionTag);
+}
+
+export function getEntriesByRegionAndCategory(
+  regionTag: string,
+  category: string
+): DrillEntry[] {
+  const byRegion = getEntriesByRegion(regionTag);
+  if (category === "All") return byRegion;
+  return byRegion.filter((e) => e.category === category);
+}
+
 

@@ -11,4 +11,6 @@ export interface DrillEntry {
   yearsActive: string;
   tags: string[];
   related: string[];
+  region?: string;
+  category?: string;
 }

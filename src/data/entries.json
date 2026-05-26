@@ -21,7 +21,8 @@
     "location": "Brooklyn, New York City",
     "yearsActive": "2018–present",
     "tags": ["nyc", "brooklyn", "drill", "new-york"],
-    "related": ["drill-music", "chicago-drill", "pop-smoke", "fivio-foreign"]
+    "related": ["drill-music", "chicago-drill", "pop-smoke", "fivio-foreign"],
+    "region": "nyc"
   },
   {
     "slug": "chicago-drill",
@@ -57,7 +58,8 @@
     "location": "Brooklyn, New York City",
     "yearsActive": "2018–2020",
     "tags": ["artist", "nyc", "brooklyn", "brooklyn-drill"],
-    "related": ["nyc-drill", "fivio-foreign", "drill-music"]
+    "related": ["nyc-drill", "fivio-foreign", "drill-music"],
+    "region": "nyc"
   },
   {
     "slug": "fivio-foreign",
@@ -69,7 +71,8 @@
     "location": "Brooklyn, New York City",
     "yearsActive": "2019–present",
     "tags": ["artist", "nyc", "brooklyn", "drill"],
-    "related": ["nyc-drill", "pop-smoke", "drill-music"]
+    "related": ["nyc-drill", "pop-smoke", "drill-music"],
+    "region": "nyc"
   },
   {
     "slug": "brooklyn-gang-culture",
@@ -81,7 +84,8 @@
     "location": "Brooklyn, New York City",
     "yearsActive": "1980s–present",
     "tags": ["gangs", "brooklyn", "crips", "bloods", "nyc"],
-    "related": ["nyc-drill", "chicago-gang-culture"]
+    "related": ["nyc-drill", "chicago-gang-culture"],
+    "region": "nyc"
   },
   {
     "slug": "chicago-gang-culture",
@@ -118,5 +122,19 @@
     "yearsActive": "2011–present",
     "tags": ["artist", "chicago", "drill", "otf"],
     "related": ["chicago-drill", "chief-keef", "drill-music"]
+  },
+  {
+    "slug": "makk-balla-family",
+    "title": "Makk Balla Family",
+    "type": "group",
+    "summary": "Makk Balla Family (MBF) is a prominent set within the NYC drill scene, known for their deep ties to Brooklyn's gang culture and frequent mentions in drill music lyrics.",
+    "content": "Makk Balla Family, commonly abbreviated as MBF, is a Brooklyn-based set that has become a recurring name in NYC drill music. Originating from the Brownsville and East New York areas, MBF is part of the larger Crips affiliation in Brooklyn.\n\nThe set gained significant notoriety in the drill scene as artists began referencing MBF in their lyrics, documenting the daily realities and rivalries that define Brooklyn's gang landscape. MBF members are known for their distinctive blue flag representation and their deep-rooted presence in the Brooklyn housing projects.\n\nIn drill music, MBF is frequently mentioned alongside other Brooklyn sets, with the name appearing in tracks by artists from across the borough. The set's influence extends beyond music into the broader fabric of Brooklyn street culture.",
+    "image": "",
+    "location": "Brooklyn, New York City",
+    "yearsActive": "2010s–present",
+    "tags": ["mbf", "brooklyn", "crips", "nyc", "sets"],
+    "related": ["nyc-drill", "brooklyn-gang-culture"],
+    "region": "nyc",
+    "category": "Sets"
   }
 ]
