@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #0a0a12;
+  --color-foreground: #f1f5f9;
+  --color-surface: #13131f;
+  --color-surface-2: #1a1a2e;
+  --color-surface-3: #22223a;
+  --color-primary: #9b4dff;
+  --color-primary-light: #b87aff;
+  --color-primary-dark: #7c2de0;
+  --color-secondary: #6b21a8;
+  --color-accent: #c084fc;
+  --color-muted: #64748b;
+  --color-border: #1e1b4b;
+  --color-border-light: #2d2a5a;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+::selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+@utility glass {
+  background: rgba(19, 19, 31, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border-light);
+}
+
+@utility gradient-border {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+  }
+}

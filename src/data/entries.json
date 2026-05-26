@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "drill-music",
+    "title": "Drill Music",
+    "type": "genre",
+    "summary": "Drill is a subgenre of hip-hop that originated in Chicago in the early 2010s. It is characterized by its dark, minimalist production, heavy 808 bass, and lyrical content reflecting street life.",
+    "content": "Drill music emerged in Chicago's South Side around 2010, pioneered by artists like Chief Keef, Lil Durk, and King Louie. The genre takes its name from the street slang \"drill,\" meaning to fight or retaliate. The sound is defined by its aggressive 808 bass, sliding hi-hats, and ominous melodies, often produced by key figures like Young Chop and DJ L.\n\nBy the mid-2010s, drill had splintered into regional variants, most notably Brooklyn Drill (also called NY Drill) and UK Drill. Brooklyn Drill, spearheaded by Pop Smoke, Fivio Foreign, and Sheff G, incorporates a more melodic flow and faster tempo. UK Drill, originating in Brixton, London, developed its own distinct sound with artists like Digga D, Unknown T, and Headie One.\n\nDrill has been controversial due to its association with gang violence and criminal activity, leading to censorship and police scrutiny in both the US and UK. Despite this, it remains one of the most influential hip-hop subgenres of the 2020s.",
+    "image": "",
+    "location": "Chicago, Illinois (origin)",
+    "yearsActive": "2010–present",
+    "tags": ["hip-hop", "chicago", "drill", "subgenre"],
+    "related": ["nyc-drill", "chicago-drill", "uk-drill"]
+  },
+  {
+    "slug": "nyc-drill",
+    "title": "New York City Drill",
+    "type": "city",
+    "summary": "New York City Drill, often called Brooklyn Drill or NY Drill, is a regional variant of drill music that emerged in Brooklyn, New York in the late 2010s, popularized by the late Pop Smoke.",
+    "content": "New York City Drill emerged around 2018 as a distinct regional offshoot of Chicago drill. The sound was pioneered by Brooklyn artists like Pop Smoke, Sheff G, and Fivio Foreign, with production from 808Melo, AXL Beats, and others.\n\nThe NY Drill sound is characterized by its faster tempo (around 140-150 BPM), heavy use of sliding 808s, and a more melodic, rhythmic flow compared to Chicago drill. Lyrically, it often references Brooklyn's gang culture, particularly the rivalry between the Crips and Bloods-influenced sets in the borough.\n\nPop Smoke's breakout hit \"Welcome to the Party\" (2019) brought the sound to global attention. Following his tragic death in 2020, the genre continued to grow through artists like Fivio Foreign, Sleepy Hallow, Sheff G, and 22Gz.\n\nDrill culture in NYC is deeply intertwined with the city's gang landscape. Groups like the Woo (associated with Pop Smoke), the Choo (Chosen Few), and the Crips/Bloods sets in Brooklyn, Queens, and the Bronx form the backdrop of much of the music's narrative.",
+    "image": "",
+    "location": "Brooklyn, New York City",
+    "yearsActive": "2018–present",
+    "tags": ["nyc", "brooklyn", "drill", "new-york"],
+    "related": ["drill-music", "chicago-drill", "pop-smoke", "fivio-foreign"]
+  },
+  {
+    "slug": "chicago-drill",
+    "title": "Chicago Drill",
+    "type": "city",
+    "summary": "Chicago Drill is the original form of drill music, originating in Chicago's South Side in the early 2010s. It is characterized by its raw, aggressive sound and unfiltered storytelling.",
+    "content": "Chicago drill music originated around 2010-2012 on the South and West Sides of Chicago. Artists like Chief Keef, Lil Durk, King Louie, and Fredo Santana, along with producers like Young Chop, defined the sound that would influence the entire genre.\n\nThe Chicago drill sound is notably darker and slower than its NYC counterpart, with tempos typically around 120-130 BPM. Young Chop's production style—minimalist, with heavy 808 kicks and eerie melodies—set the template.\n\nLyrical content in Chicago drill is starkly autobiographical, reflecting the realities of life in Chicago's most marginalized neighborhoods. Songs often reference specific housing projects (\"the projects\"), street corners, and gang affiliations, particularly the divide between the Gangster Disciples and Black Disciples.\n\nNotable early drill anthems include Chief Keef's \"I Don't Like\" and \"Love Sosa,\" Lil Durk's \"Dis Ain't What U Want,\" and King Louie's \"Valley of Kings.\" The genre faced significant controversy and censorship, with some songs being linked to escalating gang violence.",
+    "image": "",
+    "location": "Chicago, Illinois",
+    "yearsActive": "2010–present",
+    "tags": ["chicago", "drill", "hip-hop", "origin"],
+    "related": ["drill-music", "nyc-drill", "uk-drill"]
+  },
+  {
+    "slug": "uk-drill",
+    "title": "UK Drill",
+    "type": "city",
+    "summary": "UK Drill is a British variant of drill music that originated in Brixton, South London in the early 2010s. It has developed its own distinct sound and culture separate from its Chicago roots.",
+    "content": "UK Drill emerged around 2012-2014 in Brixton, London, pioneered by groups like 150, OFB (Original Farm Boys), and individuals like Digga D, Unknown T, and Headie One. The genre adapts the Chicago drill template into a uniquely British context.\n\nMusically, UK Drill is characterized by its distinctive sliding 808 pattern, syncopated hi-hat rolls, and the \"drill flow\" — a rhythmic, almost spoken delivery. Production styles vary, but the sound is generally more minimalist and rhythm-focused than its American counterparts.\n\nLyrically, UK drill artists reference postcode rivalries, road life, and the realities of growing up in London's council estates. The genre has faced intense scrutiny from UK police and government, with some songs being used as evidence in criminal trials. This has led to widespread censorship on platforms like YouTube and Spotify.\n\nDespite these challenges, UK Drill has achieved mainstream success. Artists like Central Cee, Digga D, and Headie One have crossed over into the mainstream while maintaining their drill sound.",
+    "image": "",
+    "location": "London, United Kingdom",
+    "yearsActive": "2012–present",
+    "tags": ["uk", "london", "drill", "british"],
+    "related": ["drill-music", "nyc-drill", "chicago-drill"]
+  },
+  {
+    "slug": "pop-smoke",
+    "title": "Pop Smoke",
+    "type": "artist",
+    "summary": "Bashar Barakah Jackson (1999–2020), known professionally as Pop Smoke, was an American rapper from Brooklyn, New York. He is widely credited with popularizing Brooklyn Drill music globally.",
+    "content": "Pop Smoke was born on July 20, 1999, in Brooklyn, New York. He rose to fame in 2019 with his breakout single \"Welcome to the Party,\" produced by 808Melo. His deep, gravelly voice and energetic delivery quickly became the hallmark of the Brooklyn Drill sound.\n\nHis debut mixtape \"Meet the Woo\" (2019) and its sequel \"Meet the Woo 2\" (2020) established him as a leading figure in the New York rap scene. His posthumous debut album \"Shoot for the Stars, Aim for the Moon\" (2020) was a commercial and critical success, debuting at number one on the Billboard 200.\n\nPop Smoke's music frequently referenced his affiliation with the Woo, a subset of the Crips in Canarsie, Brooklyn. His lyrics painted vivid pictures of street life in Brooklyn while also showcasing his versatility on tracks like \"What You Know Bout Love\" and \"For the Night.\"\n\nOn February 19, 2020, Pop Smoke was tragically killed during a home invasion in Los Angeles at the age of 20. His legacy continues to influence drill music worldwide, with his sound being adopted by artists across the globe.",
+    "image": "",
+    "location": "Brooklyn, New York City",
+    "yearsActive": "2018–2020",
+    "tags": ["artist", "nyc", "brooklyn", "brooklyn-drill"],
+    "related": ["nyc-drill", "fivio-foreign", "drill-music"]
+  },
+  {
+    "slug": "fivio-foreign",
+    "title": "Fivio Foreign",
+    "type": "artist",
+    "summary": "Maxie Lee Ryles III (born 1990), known as Fivio Foreign, is a Brooklyn drill rapper from East Flatbush, Brooklyn. He emerged as a key figure in the NY drill scene following Pop Smoke's death.",
+    "content": "Fivio Foreign was born on March 29, 1990, in Brooklyn, New York. He gained recognition in 2019 with his feature on \"Welcome to the Party\" remix alongside Pop Smoke. His breakout single \"Big Drip\" (2019) became an anthem of the Brooklyn Drill movement.\n\nHis debut album \"B.I.B.L.E.\" (2022), executively produced by Kanye West, showcased his versatility and cemented his place in drill history. The album featured collaborations with Kanye West, Alicia Keys, Quavo, and Ne-Yo.\n\nFivio's style is characterized by his punchy, rhythmic delivery and catchy drill flows. He is known for representing Brooklyn's gang culture in his music, often referencing specific sets and rivalries while emphasizing that drill music is documentation rather than glorification.\n\nHe continues to be one of the leading voices in New York drill, collaborating with artists across genres and helping to evolve the sound beyond its Brooklyn origins.",
+    "image": "",
+    "location": "Brooklyn, New York City",
+    "yearsActive": "2019–present",
+    "tags": ["artist", "nyc", "brooklyn", "drill"],
+    "related": ["nyc-drill", "pop-smoke", "drill-music"]
+  },
+  {
+    "slug": "brooklyn-gang-culture",
+    "title": "Brooklyn Gang Culture",
+    "type": "group",
+    "summary": "Brooklyn's gang landscape has historically been shaped by the influence of national organizations like the Crips and Bloods, adapted into local neighborhood sets that form the backdrop of NYC drill music.",
+    "content": "Brooklyn's gang culture is a complex tapestry of national affiliations, local sets, and neighborhood allegiances that forms the backdrop of much NYC drill music. Unlike Chicago's more established gang structure, Brooklyn's landscape is characterized by fractured sets and shifting alliances.\n\nThe most prominent affiliations include the Crips and Bloods, transplanted from Los Angeles but evolved into distinctly New York organizations. Specific sets like the Woo (Canarsie Crips), Choo (Chosen Few), and various Bloods sets are frequently referenced in drill lyrics.\n\nHousing projects (NYCHA developments) play a central role in Brooklyn's gang culture. Developments like the Van Dyke Houses, Pink Houses, Lafayette Gardens, and Marcy Projects serve as territorial boundaries and community centers simultaneously.\n\nIt is important to note that this documentation serves as a research resource for understanding the cultural context of drill music. The information presented reflects historical and sociological observation, not endorsement of criminal activity. Many artists have spoken about using their music as a means of escaping the environments they describe.",
+    "image": "",
+    "location": "Brooklyn, New York City",
+    "yearsActive": "1980s–present",
+    "tags": ["gangs", "brooklyn", "crips", "bloods", "nyc"],
+    "related": ["nyc-drill", "chicago-gang-culture"]
+  },
+  {
+    "slug": "chicago-gang-culture",
+    "title": "Chicago Gang Culture",
+    "type": "group",
+    "summary": "Chicago's gang landscape is one of the most documented in the United States, with organizations like the Gangster Disciples, Black Disciples, and Vice Lords shaping the context from which drill music emerged.",
+    "content": "Chicago's gang culture has a long and well-documented history dating back to the early 20th century. The modern landscape is dominated by powerful organizations like the Gangster Disciples (GDs), Black Disciples (BDs), Vice Lords, and Latin Kings, among others.\n\nThe South Side and West Side of Chicago are particularly associated with drill music. The divide between the GDs and BDs is a recurring theme in Chicago drill lyrics, with artists referencing specific blocks, intersections, and housing projects like the Robert Taylor Homes, Stateway Gardens, and Cabrini-Green.\n\nChicago's gang culture differs from other cities in its organizational structure. The city's gangs are often more hierarchical and established, with generations of family involvement creating deep-rooted traditions and rivalries.\n\nThis documentation serves purely as historical and cultural research. Understanding this context is essential for appreciating the art form that emerged from these environments. Many drill artists have used their platform to speak about the cycles of poverty and violence in their communities.",
+    "image": "",
+    "location": "Chicago, Illinois",
+    "yearsActive": "1920s–present",
+    "tags": ["gangs", "chicago", "gds", "bds", "vice-lords"],
+    "related": ["chicago-drill", "brooklyn-gang-culture"]
+  },
+  {
+    "slug": "chief-keef",
+    "title": "Chief Keef",
+    "type": "artist",
+    "summary": "Keith Farrelle Cozart (born 1995), known professionally as Chief Keef, is an American rapper from Chicago. He is widely regarded as the pioneer who brought drill music to mainstream attention.",
+    "content": "Chief Keef was born on August 15, 1995, in Chicago, Illinois. Rising to fame as a teenager in 2012, his songs \"I Don't Like\" and \"Love Sosa\" became viral hits that defined the early drill sound. Produced by Young Chop, these tracks established the template for drill music worldwide.\n\nHis debut studio album \"Finally Rich\" (2012) featured the hit \"Love Sosa\" and cemented his influence on the genre. Despite his young age, Keef's deep voice, deadpan delivery, and unfiltered lyrics about life in Chicago's Parkway Gardens (\"O-Block\") resonated with a global audience.\n\nChief Keef's impact extends far beyond his own discography. His sound influenced a generation of rappers from Chicago to London to Sydney. Artists like Lil Durk, King Von, and even Pop Smoke have cited his influence.\n\nHis career has been marked by legal troubles and controversy, particularly surrounding lyrics that authorities claim incited violence. However, his defenders argue that his music is documentary in nature, simply reflecting the reality of his environment.",
+    "image": "",
+    "location": "Chicago, Illinois",
+    "yearsActive": "2011–present",
+    "tags": ["artist", "chicago", "drill", "pioneer"],
+    "related": ["chicago-drill", "drill-music", "lil-durk"]
+  },
+  {
+    "slug": "lil-durk",
+    "title": "Lil Durk",
+    "type": "artist",
+    "summary": "Durk Derrick Banks (born 1992), known professionally as Lil Durk, is an American rapper from Chicago. He is a key figure in the Chicago drill scene and the founder of Only the Family (OTF).",
+    "content": "Lil Durk was born on October 19, 1992, in Chicago, Illinois. Growing up in Englewood, he was exposed to street life at a young age. His 2013 single \"Dis Ain't What U Want\" brought him widespread attention and established him as a leading voice in Chicago drill.\n\nHe founded the collective Only the Family (OTF), which has launched the careers of several artists including the late King Von, Booka600, and Doodie Lo. OTF represents a family-oriented approach to the drill scene, emphasizing loyalty and brotherhood.\n\nDurk's music evolved from raw drill anthems to more introspective, melodic work. His album \"The Voice\" (2020) and the collaborative project with Lil Baby \"The Voice of the Heroes\" (2021) showcased his versatility and commercial appeal.\n\nLike his peers, Durk's music is deeply rooted in Chicago's gang culture, specifically the Black Disciples affiliation of his neighborhood. He has been open about using his platform to document life in Chicago's most dangerous neighborhoods while trying to create opportunities for those around him.",
+    "image": "",
+    "location": "Chicago, Illinois",
+    "yearsActive": "2011–present",
+    "tags": ["artist", "chicago", "drill", "otf"],
+    "related": ["chicago-drill", "chief-keef", "drill-music"]
+  }
+]
