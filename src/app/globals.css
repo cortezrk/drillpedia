@@ -18,21 +18,46 @@
   --font-mono: var(--font-geist-mono);
 }
 
+body.no-copy {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+body.allow-copy {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: auto;
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-::selection {
-  background: var(--color-primary);
-  color: white;
+body.no-copy ::selection {
+  background: transparent;
+  color: inherit;
 }
 
 ::-webkit-scrollbar {

@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import { useState, useEffect, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
@@ -32,6 +32,15 @@ export default function Admin() {
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
+  const [newRequest, setNewRequest] = useState(false)
+  const prevPendingCount = useRef(0)
+  const notifSent = useRef(false)
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission()
+    }
+  }, [])
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -44,8 +53,27 @@ export default function Admin() {
   useEffect(() => {
     if (status === "authenticated" && (session.user as any)?.role === "admin") {
       fetchUsers()
+      const interval = setInterval(fetchUsers, 10000)
+      return () => clearInterval(interval)
     }
   }, [status, session])
+
+  useEffect(() => {
+    const pending = users.filter((u) => !u.approved).length
+    if (pending > prevPendingCount.current && prevPendingCount.current > 0) {
+      setNewRequest(true)
+      setTimeout(() => setNewRequest(false), 4000)
+      if (!notifSent.current && "Notification" in window && Notification.permission === "granted") {
+        new Notification("New Access Request", {
+          body: `${pending - prevPendingCount.current} new user(s) requested access`,
+          icon: "/logo.jpg",
+        })
+        notifSent.current = true
+        setTimeout(() => { notifSent.current = false }, 5000)
+      }
+    }
+    prevPendingCount.current = pending
+  }, [users])
 
   async function fetchUsers() {
     try {
@@ -108,6 +136,21 @@ export default function Admin() {
         <p className="mt-1 text-muted">Manage user access requests</p>
       </div>
 
+      <AnimatePresence>
+        {newRequest && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, y: -10, height: 0 }}
+            className="mb-4 overflow-hidden rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3"
+          >
+            <p className="text-sm font-medium text-emerald-300">
+              New pending request{prevPendingCount.current > 1 ? "s" : ""} detected
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="relative mb-8">
         <svg className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -122,8 +165,18 @@ export default function Admin() {
       </div>
 
       <section className="mb-10">
-        <h2 className="mb-4 text-xl font-semibold">
+        <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold">
           Pending Requests ({filteredPending.length})
+          <AnimatePresence>
+            {newRequest && (
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0 }}
+                className="inline-flex h-2 w-2 rounded-full bg-emerald-400"
+              />
+            )}
+          </AnimatePresence>
         </h2>
         {pendingUsers.length === 0 ? (
           <motion.div

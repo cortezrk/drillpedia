@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import Provider from "@/components/Provider";
 import PageTransition from "@/components/PageTransition";
 import ParticleBackground from "@/components/ParticleBackground";
+import CopyProtection from "@/components/CopyProtection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,6 +26,13 @@ export const metadata: Metadata = {
   description:
     "A comprehensive documentation and research hub for Drill music culture across the United States and beyond.",
   icons: "/logo.jpg",
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    nosnippet: true,
+    noimageindex: true,
+  },
 };
 
 export default function RootLayout({
@@ -40,8 +48,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <ParticleBackground />
         <Provider>
+          <CopyProtection />
           <Navbar />
-          <main className="flex-1 relative z-10">
+          <main className="flex-1 relative z-10 min-w-0">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />

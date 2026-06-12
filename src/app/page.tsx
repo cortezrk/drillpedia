@@ -90,7 +90,7 @@ export default function Home() {
           className="mb-8 text-center sm:mb-10"
         >
           <h2 className="text-xl font-bold tracking-wide sm:text-2xl">
-            Choose Your City
+            Choose The City
           </h2>
           <p className="mt-1 text-sm text-muted sm:text-base">
             Select a city to explore its drill music scene

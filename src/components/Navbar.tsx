@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession, signOut } from "next-auth/react";
@@ -10,17 +10,36 @@ import VisitTracker from "./VisitTracker";
 const links = [
   { href: "/", label: "Home" },
   { href: "/explore", label: "Explore" },
+  { href: "/dictionary", label: "Dictionary" },
   { href: "/about", label: "About" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [pendingCount, setPendingCount] = useState(0);
   const pathname = usePathname();
   const { data: session } = useSession();
 
   const isAdmin = (session?.user as any)?.role === "admin";
 
-  if (!session) return null;
+  useEffect(() => {
+    if (!isAdmin) {
+      setPendingCount(0)
+      return
+    }
+    async function fetchCount() {
+      try {
+        const res = await fetch("/api/admin/pending-count")
+        if (res.ok) {
+          const data = await res.json()
+          setPendingCount(data.count)
+        }
+      } catch {}
+    }
+    fetchCount()
+    const interval = setInterval(fetchCount, 15000)
+    return () => clearInterval(interval)
+  }, [isAdmin])
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/60 backdrop-blur-xl">
@@ -81,24 +100,33 @@ export default function Navbar() {
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
-              <span className="relative z-10">Admin</span>
+              <span className="relative z-10 flex items-center gap-1.5">
+                Admin
+                {pendingCount > 0 && (
+                  <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1.5 text-[11px] font-bold text-white leading-none">
+                    {pendingCount > 99 ? "99+" : pendingCount}
+                  </span>
+                )}
+              </span>
             </Link>
           )}
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <span className="text-sm text-muted">
-            {session.user?.name}
-          </span>
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            onClick={() => signOut()}
-            className="rounded-lg border border-border px-3 py-1.5 text-sm text-muted transition-colors hover:border-red-500/30 hover:text-red-300"
-          >
-            Sign Out
-          </motion.button>
-        </div>
+        {session && (
+          <div className="hidden items-center gap-3 md:flex">
+            <span className="text-sm text-muted">
+              {session.user?.name}
+            </span>
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              onClick={() => signOut()}
+              className="rounded-lg border border-border px-3 py-1.5 text-sm text-muted transition-colors hover:border-red-500/30 hover:text-red-300"
+            >
+              Sign Out
+            </motion.button>
+          </div>
+        )}
 
         <motion.button
           whileTap={{ scale: 0.9 }}
@@ -161,29 +189,38 @@ export default function Navbar() {
                   <Link
                     href="/admin"
                     onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-2 text-sm font-medium text-muted hover:bg-surface-2 hover:text-foreground"
+                    className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-muted hover:bg-surface-2 hover:text-foreground"
                   >
                     Admin
+                    {pendingCount > 0 && (
+                      <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1.5 text-[11px] font-bold text-white leading-none">
+                        {pendingCount > 99 ? "99+" : pendingCount}
+                      </span>
+                    )}
                   </Link>
                 </motion.div>
               )}
-              <hr className="my-2 border-border/50" />
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.1, duration: 0.3 }}
-                className="px-3 py-1 text-sm text-muted"
-              >
-                {session.user?.name}
-              </motion.p>
-              <motion.button
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                onClick={() => signOut()}
-                className="block w-full rounded-lg px-3 py-2 text-left text-sm text-red-300 hover:bg-surface-2"
-              >
-                Sign Out
-              </motion.button>
+              {session && (
+                <>
+                  <hr className="my-2 border-border/50" />
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.1, duration: 0.3 }}
+                    className="px-3 py-1 text-sm text-muted"
+                  >
+                    {session.user?.name}
+                  </motion.p>
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    onClick={() => signOut()}
+                    className="block w-full rounded-lg px-3 py-2 text-left text-sm text-red-300 hover:bg-surface-2"
+                  >
+                    Sign Out
+                  </motion.button>
+                </>
+              )}
             </div>
           </motion.div>
         )}

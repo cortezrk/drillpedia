@@ -54,10 +54,26 @@ export const authOptions: AuthOptions = {
       if (user) {
         token.id = user.id
         token.role = (user as any).role
+        return token
       }
+
+      if (token.id) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: { approved: true },
+        })
+
+        if (!dbUser || !dbUser.approved) {
+          return null as any
+        }
+      }
+
       return token
     },
     async session({ session, token }) {
+      if (!token) {
+        return null as any
+      }
       if (session.user) {
         (session.user as any).id = token.id
         ;(session.user as any).role = token.role

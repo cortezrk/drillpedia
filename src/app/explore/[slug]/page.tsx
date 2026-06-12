@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getEntryBySlug, getRelatedEntries } from "@/lib/data";
+import { getEntryBySlug } from "@/lib/data";
 import Sidebar from "@/components/Sidebar";
-import EntryCard from "@/components/EntryCard";
 import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ category?: string; region?: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -19,15 +19,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function EntryPage({ params }: Props) {
+export default async function EntryPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const sp = await searchParams;
   const entry = getEntryBySlug(slug);
 
   if (!entry) notFound();
 
-  const related = getRelatedEntries(entry.related);
+  const sections = entry.content.split("\n===\n").filter(Boolean);
 
-  const paragraphs = entry.content.split("\n\n").filter(Boolean);
+  const region = sp?.region;
+  const category = sp?.category;
+  const exploreHref = region
+    ? `/explore?region=${region}${category ? `&category=${category}` : ""}`
+    : "/explore";
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -36,7 +41,7 @@ export default async function EntryPage({ params }: Props) {
           Home
         </Link>
         <span>/</span>
-        <Link href="/explore" className="hover:text-foreground">
+        <Link href={exploreHref} className="hover:text-foreground">
           Explore
         </Link>
         <span>/</span>
@@ -48,7 +53,7 @@ export default async function EntryPage({ params }: Props) {
           <h1 className="mb-2 text-3xl font-bold">{entry.title}</h1>
           <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-muted">
             <span className="rounded-md bg-primary/15 px-2 py-0.5 text-xs font-medium text-primary-light">
-              {entry.type.charAt(0).toUpperCase() + entry.type.slice(1)}
+              {entry.category || entry.type.charAt(0).toUpperCase() + entry.type.slice(1)}
             </span>
             {entry.location && (
               <span className="flex items-center gap-1">
@@ -61,56 +66,43 @@ export default async function EntryPage({ params }: Props) {
             )}
           </div>
 
-          <div className="mb-6 rounded-xl border border-border bg-surface-2 p-4 text-sm leading-relaxed text-muted">
-            {entry.summary}
-          </div>
+          {entry.image && (
+            <div className="mb-6 overflow-hidden rounded-xl border border-border">
+              <img
+                src={entry.image}
+                alt={entry.title}
+                className="aspect-square w-full object-cover"
+              />
+            </div>
+          )}
 
-          <div className="prose prose-invert max-w-none">
-            {paragraphs.map((p, i) => (
-              <p
-                key={i}
-                className="mb-4 leading-relaxed text-foreground/90"
-              >
-                {p}
-              </p>
-            ))}
+          <div className="space-y-4">
+            {sections.map((section, i) => {
+              const newlineIdx = section.indexOf("\n");
+              const heading = newlineIdx === -1 ? section : section.slice(0, newlineIdx);
+              const body = newlineIdx === -1 ? "" : section.slice(newlineIdx + 1);
+              const lines = body.split("\n");
+              return (
+                <div
+                  key={i}
+                  className="rounded-xl border border-border bg-surface-2 p-5 text-sm leading-relaxed text-foreground/90"
+                >
+                  <h3 className="mb-3 font-bold text-foreground">{heading}</h3>
+                  {lines.map((line, j) => (
+                    <p key={j} className="mb-2 last:mb-0 leading-relaxed">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              );
+            })}
           </div>
         </article>
 
         <div className="space-y-6">
           <Sidebar entry={entry} />
-
-          {entry.related.length > 0 && (
-            <aside className="rounded-xl border border-border bg-surface p-5">
-              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted">
-                Related
-              </h3>
-              <div className="space-y-1">
-                {related.map((r) => (
-                  <Link
-                    key={r.slug}
-                    href={`/explore/${r.slug}`}
-                    className="block rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-primary-light"
-                  >
-                    {r.title}
-                  </Link>
-                ))}
-              </div>
-            </aside>
-          )}
         </div>
       </div>
-
-      {related.length > 0 && (
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-6 text-xl font-bold">Related Entries</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {related.map((r) => (
-              <EntryCard key={r.slug} entry={r} />
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   );
 }

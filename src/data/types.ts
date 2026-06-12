@@ -1,4 +1,4 @@
-export type EntryType = "genre" | "region" | "artist" | "group";
+export type EntryType = "genre" | "region" | "artist" | "group" | "set";
 
 export interface DrillEntry {
   slug: string;
@@ -13,4 +13,13 @@ export interface DrillEntry {
   related: string[];
   region?: string;
   category?: string;
+}
+
+export interface DictionaryEntry {
+  slug: string;
+  term: string;
+  definition: string;
+  example?: string;
+  region: string;
+  tags: string[];
 }

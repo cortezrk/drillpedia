@@ -1,7 +1,9 @@
-import { DrillEntry } from "@/data/types";
+import { DrillEntry, DictionaryEntry } from "@/data/types";
 import rawEntries from "@/data/entries.json";
+import rawDictionary from "@/data/dictionary.json";
 
 const entries: DrillEntry[] = rawEntries as DrillEntry[];
+const dictionaryEntries: DictionaryEntry[] = rawDictionary as DictionaryEntry[];
 
 export const regionConfigs: Record<
   string,
@@ -11,13 +13,31 @@ export const regionConfigs: Record<
     label: "NYC Drill",
     tag: "nyc",
     slug: "nyc-drill",
-    categories: ["All", "Sets", "Blocks", "Alliances", "Cliques", "Deaths", "Music Video"],
+    categories: ["All", "Sets", "Blocks", "Alliances", "Cliques", "Deaths"],
   },
   "chicago-drill": {
     label: "Chicago Drill",
     tag: "chicago",
     slug: "chicago-drill",
-    categories: ["All"],
+    categories: ["All", "Sets", "Blocks", "Alliances", "Cliques", "Deaths"],
+  },
+  "california": {
+    label: "California",
+    tag: "california",
+    slug: "california",
+    categories: ["All", "Sets", "Blocks", "Alliances", "Deaths"],
+  },
+  "texas": {
+    label: "Texas",
+    tag: "texas",
+    slug: "texas",
+    categories: ["All", "Sets", "Blocks", "Alliances", "Deaths"],
+  },
+  "uk-drill": {
+    label: "UK Drill",
+    tag: "uk",
+    slug: "uk-drill",
+    categories: ["All", "Blocks", "Alliances", "Deaths"],
   },
 };
 
@@ -44,6 +64,19 @@ export function getEntriesByRegionAndCategory(
   const byRegion = getEntriesByRegion(regionTag);
   if (category === "All") return byRegion;
   return byRegion.filter((e) => e.category === category);
+}
+
+export function getAllDictionaryEntries(): DictionaryEntry[] {
+  return dictionaryEntries;
+}
+
+export function getDictionaryEntryBySlug(slug: string): DictionaryEntry | undefined {
+  return dictionaryEntries.find((e) => e.slug === slug);
+}
+
+export function getDictionaryEntriesByRegion(regionTag: string): DictionaryEntry[] {
+  if (regionTag === "all") return dictionaryEntries;
+  return dictionaryEntries.filter((e) => e.region === regionTag);
 }
 
 

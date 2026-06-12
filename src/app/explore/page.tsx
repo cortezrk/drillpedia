@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useMemo, useCallback } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { regionConfigs, getEntriesByRegionAndCategory } from "@/lib/data";
@@ -10,10 +10,25 @@ import EntryCard from "@/components/EntryCard";
 
 function ExploreContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const regionSlug = searchParams.get("region");
   const region = regionSlug ? regionConfigs[regionSlug] : null;
 
-  const [activeCategory, setActiveCategory] = useState("All");
+  const activeCategory = searchParams.get("category") || "All";
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleCategoryChange = useCallback((category: string) => {
+    setSearchQuery("")
+    const params = new URLSearchParams(searchParams.toString())
+    if (category === "All") {
+      params.delete("category")
+    } else {
+      params.set("category", category)
+    }
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+  }, [searchParams, pathname, router])
 
   const entries = useMemo(
     () =>
@@ -22,6 +37,17 @@ function ExploreContent() {
         : [],
     [region, activeCategory]
   );
+
+  const filteredEntries = useMemo(() => {
+    if (!searchQuery.trim()) return entries;
+    const q = searchQuery.toLowerCase();
+    return entries.filter(
+      (e) =>
+        (e.title ?? "").toLowerCase().includes(q) ||
+        (e.summary ?? "").toLowerCase().includes(q) ||
+        e.tags?.some((t) => t.toLowerCase().includes(q))
+    );
+  }, [entries, searchQuery]);
 
   if (!region) {
     return (
@@ -85,7 +111,7 @@ function ExploreContent() {
   }
 
   return (
-    <div className="relative z-10 mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-8">
+    <div className="relative z-10 mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-8 min-w-0">
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -157,7 +183,7 @@ function ExploreContent() {
         {region.categories.map((category) => (
           <motion.button
             key={category}
-            onClick={() => setActiveCategory(category)}
+            onClick={() => handleCategoryChange(category)}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
             className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
@@ -171,28 +197,68 @@ function ExploreContent() {
         ))}
       </motion.div>
 
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15, duration: 0.3, ease: "easeOut" }}
+        className="relative mb-6"
+      >
+        <svg
+          className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search entries..."
+          className="w-full rounded-xl border border-border bg-surface/60 py-2.5 pl-10 pr-4 text-sm text-foreground placeholder-muted backdrop-blur-sm transition-colors focus:border-primary/50 focus:outline-none"
+        />
+        {searchQuery && (
+          <button
+            onClick={() => setSearchQuery("")}
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
+      </motion.div>
+
       <AnimatePresence mode="wait">
-        {entries.length > 0 ? (
+        {filteredEntries.length > 0 ? (
           <motion.div
-            key={activeCategory}
+            key={activeCategory + searchQuery}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+            className="min-w-0"
           >
-            {entries.map((entry, i) => (
-              <EntryCard key={entry.slug} entry={entry} index={i} />
-            ))}
+            {searchQuery && (
+              <p className="mb-4 text-xs text-muted">
+                Found {filteredEntries.length} result{filteredEntries.length !== 1 ? "s" : ""} for "<span className="text-foreground">{searchQuery}</span>"
+              </p>
+            )}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 min-w-0">
+              {filteredEntries.map((entry, i) => (
+                <EntryCard key={entry.slug} entry={entry} index={i} searchParams={searchParams.toString()} />
+              ))}
+            </div>
           </motion.div>
         ) : (
           <motion.div
-            key={activeCategory}
+            key={activeCategory + searchQuery}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="flex flex-col items-center justify-center py-20 text-center"
+            className="flex flex-col items-center justify-center py-16 text-center"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -210,13 +276,17 @@ function ExploreContent() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={1.5}
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
             </motion.div>
-            <h2 className="mb-1 text-xl font-semibold">No Entries Yet</h2>
+            <h2 className="mb-1 text-xl font-semibold">
+              {searchQuery ? "No Results" : "No Entries Yet"}
+            </h2>
             <p className="max-w-sm text-sm text-muted">
-              Content for {activeCategory === "All" ? "this city" : activeCategory} is being prepared. Check back later.
+              {searchQuery
+                ? `No entries match "${searchQuery}". Try a different search term.`
+                : `Content for ${activeCategory === "All" ? "this city" : activeCategory} is being prepared. Check back later.`}
             </p>
           </motion.div>
         )}
